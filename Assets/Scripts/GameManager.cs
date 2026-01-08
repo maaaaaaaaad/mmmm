@@ -2,24 +2,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private const string InstanceName = "@Manager";
     private static GameManager _instance;
     public static GameManager GetInstance() => _instance;
 
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Init()
     {
         if (_instance != null)
             return;
 
-        var go = GameObject.Find("@Manager");
+        var go = GameObject.Find(InstanceName);
         if (go == null)
         {
-            go = new GameObject { name = "@Manager" };
+            go = new GameObject { name = InstanceName };
             _instance = go.AddComponent<GameManager>();
         }
         else
         {
-            DontDestroyOnLoad(go);
             _instance = go.GetComponent<GameManager>();
+            DontDestroyOnLoad(go);
         }
     }
 
