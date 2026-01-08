@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Controllers.Players
 {
@@ -9,7 +10,14 @@ namespace Controllers.Players
         private void Start()
         {
             _getGameManager = GameManager.GetInstance();
-            Debug.Log($"Player started instance of {_getGameManager.gameObject}");
+        }
+
+        private void Update()
+        {
+            if (Keyboard.current.wKey.isPressed)
+            {
+                Debug.Log("Player is moving forward");
+            }
         }
     }
 }
