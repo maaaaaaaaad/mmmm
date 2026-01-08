@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/unity,android,xcode,rider,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity,android,xcode,rider,macos
-
+*.md
+.claude
 ### Android ###
 # Gradle files
 .gradle/
