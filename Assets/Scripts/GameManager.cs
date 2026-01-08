@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const string InstanceName = "@Manager";
+    private const string ObjName = "@Manager";
     private static GameManager _instance;
     public static GameManager GetInstance() => _instance;
 
@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             return;
 
-        var go = GameObject.Find(InstanceName);
+        var go = GameObject.Find(ObjName);
         if (go == null)
         {
-            go = new GameObject { name = InstanceName };
+            go = new GameObject { name = ObjName };
             _instance = go.AddComponent<GameManager>();
         }
         else
