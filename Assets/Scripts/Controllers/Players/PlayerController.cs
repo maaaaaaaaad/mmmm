@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ namespace Controllers.Players
     public class PlayerController : MonoBehaviour
     {
         private const float MoveSpeed = 2f;
+        private const float RotationSpeed = 20f;
         private GameManager _getGameManager;
 
         private void Start()
@@ -23,21 +25,30 @@ namespace Controllers.Players
             var direction = Vector3.zero;
 
             if (Keyboard.current.wKey.isPressed)
-                direction += transform.forward;
+                direction += Vector3.forward;
 
             if (Keyboard.current.sKey.isPressed)
-                direction -= transform.forward;
+                direction += Vector3.back;
 
             if (Keyboard.current.aKey.isPressed)
-                direction -= transform.right;
+                direction += Vector3.left;
 
             if (Keyboard.current.dKey.isPressed)
-                direction += transform.right;
+                direction += Vector3.right;
 
-            if (direction != Vector3.zero)
-                direction.Normalize();
+            if (direction == Vector3.zero)
+                return;
 
-            transform.position += direction * (Time.deltaTime * MoveSpeed);
+            direction.Normalize();
+
+            var targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * RotationSpeed
+            );
+
+            transform.Translate(Vector3.forward * (Time.deltaTime * MoveSpeed));
         }
     }
 }
